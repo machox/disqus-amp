@@ -3,9 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>Disqus</title>
+  <style>
+    .dark {background-color: #1e1e1e;}
+    .light {background-color: #fff;}
+  </style>
 </head>
 <body>
-    <div style="background-color: #1e1e1e;" id="disqus_thread"></div>
+    <div id="disqus_thread"></div>
     <script>
     window.addEventListener('message', receiveMessage, false);
     function receiveMessage(event)
@@ -45,10 +49,16 @@
             this.page.identifier = decodeURIComponent(getQueryVariable("identifier"));
         };
         var shortname = decodeURIComponent(getQueryVariable("shortname"));
+        var theme = decodeURIComponent(getQueryVariable("theme"));
         (function() {  // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
-
-    		s.src = '//' + shortname + '.disqus.com/embed.js';
+            if(typeof theme !== "undefined") {
+              if(theme == 'dark') {
+                d.body.classList.add("dark");
+              }
+            }
+    		    
+            s.src = '//' + shortname + '.disqus.com/embed.js';
 
             s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
